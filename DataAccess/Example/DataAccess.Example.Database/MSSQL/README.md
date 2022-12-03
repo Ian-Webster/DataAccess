@@ -10,9 +10,31 @@ cd to \MSSQL\ms-sql-docker and run;
 docker-compose -f docker-compose.database.yaml up
 ```
 
-The yaml file defines the password for the SA account as "Passw0rd!?2223", if you want to change this you'll need to edit the "SA_PASSWORD" element.
-
 Once MS-SQL server is up and running run the docker file to create a Liquibase container and run an update command;
+
+*note* at time of writing I've not been able to get dockers internal DNS to resolve the "ms-sql-net" network, the upshot of this is you have to follow these steps before you run the liquibase docker compose command;
+
+1. Open a prompt to your WSL-2 Linux instance
+
+2. Run this command;
+
+   ```bash
+   docker inspect ms-sql-db | grep IPAddress
+   ```
+
+3. This will give you an IP address, copy this into clipboard
+
+4. Open liquibase.properties found in \config
+
+5. Modify the following line;
+
+   ```
+   url: jdbc:sqlserver://ms-sql-net:1433;database=DataAccessExampleDatabase;trustServerCertificate=true;
+   ```
+
+6. Replace "ms-sql-net" with the IP address from step 3
+
+7. Save the file
 
 cd to \MSSQL\liquibase-docker and run;
 
