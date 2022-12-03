@@ -10,6 +10,6 @@ services:
       - ./scripts:/liquibase/scripts
       - ./config/liquibase.properties:/liquibase/liquibase.properties
     networks:
-      - lobo-net
+      - postgres-net
 networks:
-  lobo-net:  
+  postgres-net:

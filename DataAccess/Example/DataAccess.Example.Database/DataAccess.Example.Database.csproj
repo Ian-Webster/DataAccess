@@ -6,10 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="MSSQL\config\**" />
-    <EmbeddedResource Remove="MSSQL\config\**" />
-    <None Remove="MSSQL\config\**" />
-  </ItemGroup>
-
 </Project>

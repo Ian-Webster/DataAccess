@@ -16,6 +16,6 @@ services:
       - postgres-data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
-      - lobo-net
+      - postgres-net
 networks:
-  lobo-net:
+  postgres-net:
