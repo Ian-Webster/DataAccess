@@ -3,13 +3,16 @@ version: "3.9"
 services:
   ms-sql-db:
     container_name: ms-sql-db
-    image: "mcr.microsoft.com/mssql/server"
+    build:
+      context: .
+      dockerfile: data/DockerFile
     ports:
       - "1433:1433"
-    environment:
-      SA_PASSWORD: "Passw0rd!?2223"
-      ACCEPT_EULA: "Y"
     networks:
       - ms-sql-net
+    volumes:
+      - mssqldata:/var/opt/mssql
 networks:
   ms-sql-net:
+volumes:
+  mssqldata:

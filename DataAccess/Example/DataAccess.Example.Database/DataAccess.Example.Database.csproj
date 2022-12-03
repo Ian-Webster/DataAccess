@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="MSSQL\config\" />
+    <Compile Remove="MSSQL\config\**" />
+    <EmbeddedResource Remove="MSSQL\config\**" />
+    <None Remove="MSSQL\config\**" />
   </ItemGroup>
 
 </Project>

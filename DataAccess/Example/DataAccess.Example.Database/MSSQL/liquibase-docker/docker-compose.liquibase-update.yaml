@@ -4,10 +4,11 @@ services:
   ms-sql-liquibase:
     container_name: ms-sql-liquibase
     image: liquibase/liquibase
-    command: --url=jdbc:sqlserver://ms-sql-db:1433;username=sa;password=Passw0rd!?2223 --changeLogFile=changelog.xml update
+    command: --defaultsFile=liquibase.properties update
     volumes:
       - ./config/changelog.xml:/liquibase/changelog.xml
       - ./scripts:/liquibase/scripts
+      - ./config/liquibase.properties:/liquibase/liquibase.properties
     networks:
       - ms-sql-net
 networks:
