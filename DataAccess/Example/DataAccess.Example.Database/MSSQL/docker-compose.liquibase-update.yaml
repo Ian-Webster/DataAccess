@@ -13,3 +13,4 @@ services:
       - ms-sql-net
 networks:
   ms-sql-net:  
+    name: ms-sql-net
