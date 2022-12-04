@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Repository", "DataAccess.Repository\DataAccess.Repository.csproj", "{367A141B-6542-4F9A-89B6-12CA53A4CB8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.Repository", "DataAccess.Repository\DataAccess.Repository.csproj", "{367A141B-6542-4F9A-89B6-12CA53A4CB8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Repository.Tests", "DataAccess.Repository.Tests\DataAccess.Repository.Tests.csproj", "{AF24B4F9-BAC5-403F-BE10-1A53A1CDC0EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.Repository.Tests", "DataAccess.Repository.Tests\DataAccess.Repository.Tests.csproj", "{AF24B4F9-BAC5-403F-BE10-1A53A1CDC0EA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{DE3BBAC2-124B-403F-BB19-03A794FE57F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Example.Web", "Example\DataAccess.Example.Web\DataAccess.Example.Web.csproj", "{B8EDFA45-9B84-4B90-AA21-D8F2ED870E9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.Example.Web", "Example\DataAccess.Example.Web\DataAccess.Example.Web.csproj", "{B8EDFA45-9B84-4B90-AA21-D8F2ED870E9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Example.Database", "Example\DataAccess.Example.Database\DataAccess.Example.Database.csproj", "{01D1F0A2-B22B-41E6-96A1-3BCC516BBF06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.Example.Database", "Example\DataAccess.Example.Database\DataAccess.Example.Database.csproj", "{01D1F0A2-B22B-41E6-96A1-3BCC516BBF06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Example.Data", "DataAccess.Example.Data\DataAccess.Example.Data.csproj", "{E682139A-C953-49FA-B515-05B2E69D670E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +36,10 @@ Global
 		{01D1F0A2-B22B-41E6-96A1-3BCC516BBF06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{01D1F0A2-B22B-41E6-96A1-3BCC516BBF06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01D1F0A2-B22B-41E6-96A1-3BCC516BBF06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E682139A-C953-49FA-B515-05B2E69D670E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E682139A-C953-49FA-B515-05B2E69D670E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E682139A-C953-49FA-B515-05B2E69D670E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E682139A-C953-49FA-B515-05B2E69D670E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B8EDFA45-9B84-4B90-AA21-D8F2ED870E9B} = {DE3BBAC2-124B-403F-BB19-03A794FE57F1}
 		{01D1F0A2-B22B-41E6-96A1-3BCC516BBF06} = {DE3BBAC2-124B-403F-BB19-03A794FE57F1}
+		{E682139A-C953-49FA-B515-05B2E69D670E} = {DE3BBAC2-124B-403F-BB19-03A794FE57F1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E9414AEC-FCFA-419E-97A9-BB14AD678C48}

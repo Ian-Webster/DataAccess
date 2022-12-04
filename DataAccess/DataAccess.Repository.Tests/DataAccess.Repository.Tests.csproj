@@ -33,7 +33,6 @@
     <Folder Include="Shared\Entities\" />
     <Folder Include="Shared\EntityTypeMappings\" />
     <Folder Include="Shared\DatabaseContexts\" />
-    <Folder Include="Shared\Repositories\" />
     <Folder Include="Tests\" />
   </ItemGroup>
 
