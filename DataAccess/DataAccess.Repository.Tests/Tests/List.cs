@@ -28,7 +28,7 @@ public class List: RepositoryTestBase<Book>
         var context = GetContext();
         var repo = GetRepository(context);
 
-        await InsertData(BookDummyData.BookTestData, context);
+        await InsertData(BookTestData.GetBookData(), context);
 
         // act
         var result = await repo.List(p => p.Name.Contains("wobble"), Token);
@@ -45,7 +45,7 @@ public class List: RepositoryTestBase<Book>
         var context = GetContext();
         var repo = GetRepository(context);
 
-        await InsertData(BookDummyData.BookTestData, context);
+        await InsertData(BookTestData.GetBookData(), context);
 
         // act
         var result = await repo.List(p => p.Name.Contains(searchString), Token);
@@ -53,7 +53,7 @@ public class List: RepositoryTestBase<Book>
         // assert
         Assert.IsNotEmpty(result);
 
-        var expectedBooks = BookDummyData.BookTestData.Where(b => b.Name.Contains(searchString)).ToList();
+        var expectedBooks = BookTestData.GetBookData().Where(b => b.Name.Contains(searchString)).ToList();
         Assert.AreEqual(expectedBooks.Count, result.Count());
         expectedBooks.ForEach(b =>
         {

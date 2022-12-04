@@ -28,7 +28,7 @@ public class FirstOrDefault: RepositoryTestBase<Book>
         var context = GetContext();
         var repo = GetRepository(context);
 
-        await InsertData(BookDummyData.BookTestData, context);
+        await InsertData(BookTestData.GetBookData(), context);
 
         // act
         var result = await repo.FirstOrDefault(p => p.BookId == Guid.Empty, Token);
@@ -44,7 +44,7 @@ public class FirstOrDefault: RepositoryTestBase<Book>
         var context = GetContext();
         var repo = GetRepository(context);
         
-        await InsertData(BookDummyData.BookTestData, context);
+        await InsertData(BookTestData.GetBookData(), context);
 
         // act
         var result = await repo.FirstOrDefault(p => p.BookId == bookId, Token);
@@ -52,7 +52,7 @@ public class FirstOrDefault: RepositoryTestBase<Book>
         // assert
         Assert.IsNotNull(result);
 
-        var expectedBook = BookDummyData.BookTestData.First(b => b.BookId == bookId);
+        var expectedBook = BookTestData.GetBookData().First(b => b.BookId == bookId);
 
         StringAssert.AreEqualIgnoringCase(JsonConvert.SerializeObject(expectedBook), JsonConvert.SerializeObject(result));
     }

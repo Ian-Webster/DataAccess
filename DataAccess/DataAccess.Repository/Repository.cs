@@ -13,6 +13,11 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         _context = context;
         _dbSet = _context.Set<TEntity>();
     }
+    
+    public async Task<bool> Exists(Expression<Func<TEntity, bool>> predicate, CancellationToken token)
+    {
+        return await _dbSet.AnyAsync(predicate, token);
+    }
 
     public async Task<TEntity?> FirstOrDefault(Expression<Func<TEntity, bool>> predicate, CancellationToken token)
     {
@@ -31,8 +36,27 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         return await SaveChanges(token);
     }
 
+    public async Task<bool> Update(TEntity entity, CancellationToken token)
+    {
+        if (!EntityIsAttached(entity))
+        {
+            // Maybe this should be an exception? someone is misusing the method
+            return false;
+        }
+
+        _dbSet.Update(entity);
+
+        return await SaveChanges(token);
+    }
+
     public async Task<bool> Remove(TEntity entity, CancellationToken token)
     {
+        if (!EntityIsAttached(entity))
+        {
+            // Maybe this should be an exception? someone is misusing the method
+            return false;
+        }
+
         _context.Remove(entity);
 
         return await SaveChanges(token);
@@ -42,4 +66,10 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         return await _context.SaveChangesAsync(token) > 0;
     }
+
+    private bool EntityIsAttached(TEntity entity)
+    {
+        return _dbSet.Local.Any(l => l == entity);
+    }
+
 }

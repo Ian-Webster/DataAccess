@@ -44,21 +44,36 @@ public class RepositoryTestBase<TEntity> where TEntity : class
 
     protected static IEnumerable AddBookTestCaseData()
     {
-        return BookDummyData.GetAddBookTestCaseData();
+        return BookTestData.GetAddBookTestCaseData();
+    }
+
+    protected static IEnumerable UpdateBookTestCaseData()
+    {
+        return BookTestData.GetUpdateBookTestCaseData();
+    }
+
+    protected static IEnumerable UnattachedUpdateBookTestCaseData()
+    {
+        return BookTestData.GetUnattachedUpdateBookTestCaseData();
     }
 
     protected static IEnumerable RemoveBookTestCaseData()
     {
-        return BookDummyData.GetRemoveBookTestCaseData();
+        return BookTestData.GetRemoveBookTestCaseData();
     }
 
+    protected static IEnumerable UnAttachedRemoveBookTestCaseData()
+    {
+        return BookTestData.GetUnAttachedRemoveBookTestCaseData();
+    }
+    
     protected static IEnumerable FirstOrDefaultBookTestCaseData()
     {
-        return BookDummyData.GetFirstOrDefaultBookTestCaseData();
+        return BookTestData.GetFirstOrDefaultBookTestCaseData();
     }
 
     protected static IEnumerable ListBookTestCaseData()
     {
-        return BookDummyData.GetListBooksTestCaseData();
+        return BookTestData.GetListBooksTestCaseData();
     }
 }
