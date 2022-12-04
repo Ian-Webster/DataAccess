@@ -1,0 +1,16 @@
+version: "3.1"
+
+services:
+  ms-sql-liquibase:
+    container_name: ms-sql-liquibase
+    image: liquibase/liquibase
+    command: --defaultsFile=liquibase.properties update
+    volumes:
+      - ./config/changelog.xml:/liquibase/changelog.xml
+      - ./scripts:/liquibase/scripts
+      - ./config/liquibase.properties:/liquibase/liquibase.properties
+    networks:
+      - ms-sql-net
+networks:
+  ms-sql-net:  
+    name: ms-sql-net

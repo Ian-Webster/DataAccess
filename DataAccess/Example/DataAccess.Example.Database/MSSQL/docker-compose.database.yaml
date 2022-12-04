@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  ms-sql-db:
+    container_name: ms-sql-db
+    build:
+      context: .
+      dockerfile: sqlconfig/DockerFile
+    ports:
+      - "1433:1433"
+    networks:
+      - ms-sql-net
+    volumes:
+      - mssqldata:/var/opt/mssql
+networks:
+  ms-sql-net:  
+    name: ms-sql-net
+volumes:
+  mssqldata:

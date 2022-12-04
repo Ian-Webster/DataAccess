@@ -1,0 +1,9 @@
+FROM mcr.microsoft.com/mssql/server:2019-latest
+
+ENV ACCEPT_EULA=Y
+ENV SA_PASSWORD=Passw0rd!?2223
+
+COPY ./sqlconfig /
+
+ENTRYPOINT [ "/bin/bash", "entrypoint.sh" ]
+CMD [ "/opt/mssql/bin/sqlservr" ]
