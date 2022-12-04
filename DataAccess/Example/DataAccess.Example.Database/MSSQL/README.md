@@ -4,13 +4,13 @@
 
 Start by running the docker file to create a MS-SQL server container;
 
-cd to \MSSQL\ms-sql-docker and run;
+Open a command prompt, cd to this folder and run;
 
 ```powershell
 docker-compose -f docker-compose.database.yaml up
 ```
 
-Once MS-SQL server is up and running run the docker file to create a Liquibase container and run an update command;
+Once the MS SQL server is up and running run the docker file to create a Liquibase container and run an update command;
 
 *note* at time of writing I've not been able to get dockers internal DNS to resolve the "ms-sql-net" network, the upshot of this is you have to follow these steps before you run the liquibase docker compose command;
 
@@ -36,7 +36,7 @@ Once MS-SQL server is up and running run the docker file to create a Liquibase c
 
 7. Save the file
 
-cd to \MSSQL\liquibase-docker and run;
+In the same folder open another command prompt and run;
 
 ```
 docker-compose -f docker-compose.liquibase-update.yaml up
@@ -44,9 +44,16 @@ docker-compose -f docker-compose.liquibase-update.yaml up
 
 ## Files
 
-### ms-sql-docker
+In the root of the MS-SQL folder we have the two docker compose yaml files we need to create the Postgres database server and Liquibase service containers.
 
-This folder is the root for the MS SQL docker set up, it contains the docker-compose file for bringing up the MS SQL server instance
+### config
+
+This folder contains the files required by Liquibase to run change scripts on the "DataAccessExampleDatabase" database
+
+The files are as follows;
+
+- changelog.xml - bootstrapping for Liquibase
+- liquibase.properties - Liquibase configuration file (passwords etc)
 
 ### data
 

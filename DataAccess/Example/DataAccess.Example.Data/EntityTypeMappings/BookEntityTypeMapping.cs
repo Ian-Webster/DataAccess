@@ -10,6 +10,6 @@ public class BookEntityTypeMapping: IEntityTypeConfiguration<Book>
     {
         builder.HasKey(pk => pk.BookId);
 
-        builder.ToTable(nameof(Book));
+        builder.ToTable(nameof(Book), "dbo");
     }
 }

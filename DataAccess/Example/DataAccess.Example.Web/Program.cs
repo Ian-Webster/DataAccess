@@ -33,7 +33,7 @@ builder.Services.AddDbContext<LibraryDatabaseContext>(options =>
 });
 
 // set up services
-builder.Services.AddScoped<RepositoryFactory>();
+builder.Services.AddScoped<RepositoryFactory<LibraryDatabaseContext>>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 
 var app = builder.Build();

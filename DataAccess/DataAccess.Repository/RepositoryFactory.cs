@@ -2,12 +2,12 @@
 
 namespace DataAccess.Repository;
 
-public class RepositoryFactory
+public class RepositoryFactory<TContext> where TContext : DbContext
 {
     private readonly DbContext _context;
     private readonly Dictionary<Type, object> _repositories;
 
-    public RepositoryFactory(DbContext context)
+    public RepositoryFactory(TContext context)
     {
         _context = context;
         _repositories = new Dictionary<Type, object>();

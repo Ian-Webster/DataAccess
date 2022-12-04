@@ -1,9 +1,7 @@
 ﻿using System.Collections;
 using DataAccess.Repository.Tests.Shared.DatabaseContexts;
 using DataAccess.Repository.Tests.Shared.DummyData;
-using DataAccess.Repository.Tests.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
-using NUnit.Framework;
 
 namespace DataAccess.Repository.Tests.Tests;
 
@@ -27,9 +25,9 @@ public class RepositoryTestBase<TEntity> where TEntity : class
         return context.Set<TEntity>();
     }
 
-    protected IRepository<TEntity> GetRepository(DbContext? context = null)
+    protected IRepository<TEntity> GetRepository(LibraryDatabaseContext? context = null)
     {
-        return new RepositoryFactory(context ?? GetContext()).GetRepositoryByType<TEntity>();
+        return new RepositoryFactory<LibraryDatabaseContext>(context ?? GetContext()).GetRepositoryByType<TEntity>();
     }
 
     protected async Task InsertData(List<TEntity> entities, DbContext context)

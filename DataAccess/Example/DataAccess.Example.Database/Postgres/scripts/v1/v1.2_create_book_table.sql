@@ -9,7 +9,7 @@
 
 -- changeset webster:1.1
 -- comment: create book table
-CREATE TABLE public."Book"(
+CREATE TABLE dbo."Book"(
 	"BookId" uuid NOT NULL,
 	"Name" varchar(128) NOT NULL,
  CONSTRAINT book_pk PRIMARY KEY ("BookId")
