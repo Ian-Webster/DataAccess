@@ -10,6 +10,8 @@
     <PackageProjectUrl>https://github.com/Ian-Webster/DataAccess</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/Ian-Webster/DataAccess</RepositoryUrl>
+    <VersionPrefix>1.0.1</VersionPrefix>
+    <VersionSuffix></VersionSuffix>
   </PropertyGroup>
 
   <ItemGroup>

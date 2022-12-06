@@ -40,5 +40,5 @@ jobs:
 
     # Publish NuGet package
     - name: Publish DataAccess NuGet package to GitHub
-      run: dotnet nuget push **/*.nupkg --source "github"
+      run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
 
