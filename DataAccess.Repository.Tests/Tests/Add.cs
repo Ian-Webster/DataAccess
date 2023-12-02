@@ -19,11 +19,10 @@ public class Add: RepositoryTestBase<Book>
         var result = await repo.Add(data, Token);
 
         // assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
 
         var addedBook = await repo.FirstOrDefault(p => p.BookId == data.BookId, Token);
 
-        Assert.IsNotNull(addedBook);
-        StringAssert.AreEqualIgnoringCase(JsonConvert.SerializeObject(data), JsonConvert.SerializeObject(addedBook));
+        Assert.That(JsonConvert.SerializeObject(data), Is.EqualTo(JsonConvert.SerializeObject(addedBook)));
     }
 }

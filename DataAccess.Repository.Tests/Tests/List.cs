@@ -17,8 +17,9 @@ public class List: RepositoryTestBase<Book>
         var result = await repo.List(p => p.Name.Contains("Book"), Token);
 
         // assert
-        Assert.IsNotNull(result);
-        Assert.IsEmpty(result);
+        var enumerable = result.ToList();
+        Assert.That(enumerable, Is.Not.Null);
+        Assert.That(enumerable, Is.Empty);
     }
 
     [Test]
@@ -34,8 +35,9 @@ public class List: RepositoryTestBase<Book>
         var result = await repo.List(p => p.Name.Contains("wobble"), Token);
 
         // assert
-        Assert.IsNotNull(result);
-        Assert.IsEmpty(result);
+        var enumerable = result.ToList();
+        Assert.That(enumerable, Is.Not.Null);
+        Assert.That(enumerable, Is.Empty);
     }
 
     [TestCaseSource(nameof(ListBookTestCaseData))]
@@ -51,13 +53,13 @@ public class List: RepositoryTestBase<Book>
         var result = await repo.List(p => p.Name.Contains(searchString), Token);
 
         // assert
-        Assert.IsNotEmpty(result);
+        Assert.That(result, Is.Not.Empty);
 
         var expectedBooks = BookTestData.GetBookData().Where(b => b.Name.Contains(searchString)).ToList();
-        Assert.AreEqual(expectedBooks.Count, result.Count());
+        Assert.That(expectedBooks.Count, Is.EqualTo(result.Count()));
         expectedBooks.ForEach(b =>
         {
-            Assert.IsTrue(result.Any(r => r.BookId == b.BookId));
+            Assert.That(result.Any(r => r.BookId == b.BookId), Is.True);
         });
 
 }
