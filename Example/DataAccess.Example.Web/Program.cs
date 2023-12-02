@@ -20,6 +20,8 @@ var postgresConnectionString = builder.Configuration.GetConnectionString("Postgr
 // set up db context
 var databaseOptions = builder.Configuration.GetSection(nameof(DatabaseOptions)).Get<DatabaseOptions>();
 
+if (databaseOptions == null) throw new Exception("DatabaseOptions not set");
+
 builder.Services.AddDbContext<LibraryDatabaseContext>(options =>
 {
     if (databaseOptions.UseMsSql)

@@ -18,7 +18,7 @@ public class FirstOrDefault: RepositoryTestBase<Book>
         var result = await repo.FirstOrDefault(p => p.Name != String.Empty, Token);
 
         // assert
-        Assert.IsNull(result);
+        Assert.That(result, Is.Null);
     }
 
     [Test]
@@ -34,7 +34,7 @@ public class FirstOrDefault: RepositoryTestBase<Book>
         var result = await repo.FirstOrDefault(p => p.BookId == Guid.Empty, Token);
 
         // assert
-        Assert.IsNull(result);
+        Assert.That(result, Is.Null);
     }
 
     [TestCaseSource(nameof(FirstOrDefaultBookTestCaseData))]
@@ -50,10 +50,10 @@ public class FirstOrDefault: RepositoryTestBase<Book>
         var result = await repo.FirstOrDefault(p => p.BookId == bookId, Token);
 
         // assert
-        Assert.IsNotNull(result);
+        Assert.That(result, Is.Not.Null);
 
         var expectedBook = BookTestData.GetBookData().First(b => b.BookId == bookId);
 
-        StringAssert.AreEqualIgnoringCase(JsonConvert.SerializeObject(expectedBook), JsonConvert.SerializeObject(result));
+        Assert.That(JsonConvert.SerializeObject(expectedBook), Is.EqualTo(JsonConvert.SerializeObject(result)));
     }
 }

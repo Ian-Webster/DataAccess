@@ -14,6 +14,6 @@ public class LibraryDatabaseContext: DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(LibraryDatabaseContext)));
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(LibraryDatabaseContext)) ?? throw new InvalidOperationException());
     }
 }

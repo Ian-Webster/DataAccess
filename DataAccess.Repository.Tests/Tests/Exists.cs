@@ -24,7 +24,7 @@ public class Exists: RepositoryTestBase<Book>
         var result = await repo.Exists(b => b.BookId == bookId, Token);
 
         // assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
     }
 
     [TestCase("D2FD9BD6-6439-4A59-8C28-A6CBE947A55A")]
@@ -44,6 +44,6 @@ public class Exists: RepositoryTestBase<Book>
         var result = await repo.Exists(b => b.BookId == bookId, Token);
 
         // assert
-        Assert.IsFalse(result);
+        Assert.That(result, Is.False);
     }
 }

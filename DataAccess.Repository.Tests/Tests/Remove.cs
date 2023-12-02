@@ -24,11 +24,11 @@ public class Remove: RepositoryTestBase<Book>
         var result = await repo.Remove(bookToRemove, Token);
 
         // assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
 
         var books = await dbSet.ToListAsync();
 
-        Assert.IsFalse(books.Any(b => b.BookId == bookIdToRemove));
+        Assert.That(books.Any(b => b.BookId == bookIdToRemove), Is.False);
         Assert.That(BookTestData.GetBookData().Count -1, Is.EqualTo(books.Count));
     }
 
@@ -46,11 +46,11 @@ public class Remove: RepositoryTestBase<Book>
         var result = await repo.Remove(bookToRemove, Token);
 
         // assert
-        Assert.IsFalse(result);
+        Assert.That(result, Is.False);
 
         var books = await dbSet.ToListAsync();
 
-        Assert.IsTrue(books.Any(b => b.BookId == bookToRemove.BookId));
+        Assert.That(books.Any(b => b.BookId == bookToRemove.BookId), Is.True);
         Assert.That(BookTestData.GetBookData().Count, Is.EqualTo(books.Count));
     }
 }
