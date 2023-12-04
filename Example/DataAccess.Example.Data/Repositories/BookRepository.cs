@@ -1,6 +1,8 @@
 ﻿using DataAccess.Example.Data.DatabaseContexts;
 using DataAccess.Example.Data.Entities;
 using DataAccess.Repository;
+using DataAccess.Repository.HotChocolate;
+using HotChocolate.Resolvers;
 
 namespace DataAccess.Example.Data.Repositories;
 
@@ -54,5 +56,10 @@ public class BookRepository: IBookRepository
         }
 
         return await _bookRepo.Remove(bookToRemove, token);
+    }
+
+    public async Task<Book?> GetBookForGraphQuery(IResolverContext context, CancellationToken token)
+    {
+        return await _bookRepo.GetQueryItem(context, token);
     }
 }

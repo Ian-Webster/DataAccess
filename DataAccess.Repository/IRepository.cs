@@ -1,9 +1,13 @@
 ﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repository
 {
     public interface IRepository<TEntity> where TEntity: class
     {
+
+        public DbSet<TEntity> DbSet { get;  }
+
         /// <summary>
         /// Checks if a object matching the given predicate exists
         /// </summary>
