@@ -1,4 +1,5 @@
 using DataAccess.Example.Data.DatabaseContexts;
+using DataAccess.Example.Data.Queries;
 using DataAccess.Example.Data.Repositories;
 using DataAccess.Example.Web.Models;
 using DataAccess.Repository;
@@ -20,6 +21,8 @@ var postgresConnectionString = builder.Configuration.GetConnectionString("Postgr
 // set up db context
 var databaseOptions = builder.Configuration.GetSection(nameof(DatabaseOptions)).Get<DatabaseOptions>();
 
+if (databaseOptions == null) throw new Exception("DatabaseOptions not set");
+
 builder.Services.AddDbContext<LibraryDatabaseContext>(options =>
 {
     if (databaseOptions.UseMsSql)
@@ -36,6 +39,14 @@ builder.Services.AddDbContext<LibraryDatabaseContext>(options =>
 builder.Services.AddScoped<RepositoryFactory<LibraryDatabaseContext>>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 
+// set up HotChocolate
+builder.Services.AddGraphQLServer()
+    .AddQueryType(q => q.Name("Query"))
+    .AddTypeExtension<BookQuery>()
+    .AddProjections()
+    .AddFiltering()
+    .AddSorting();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -50,5 +61,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGraphQL();
 
 app.Run();

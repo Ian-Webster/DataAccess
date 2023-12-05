@@ -116,8 +116,9 @@ In your IoC bootstrapping you need to;
 
 ## Version history
 
+- 2.0.0 - work in progress commit to support the DataAccess.Repository.HotChocolate package
 - 1.0.4 - added usage instructions to readme file
 - 1.0.3 - updated main readme file
 - 1.0.2 - changes to main build action to attempt to fix NuGet publishing issue
-- 1.0.1 - testing nuget publish on merge to main post pull request
+- 1.0.1 - testing NuGet publish on merge to main post pull request
 - 1.0.0 - initial test publication of the NuGet package

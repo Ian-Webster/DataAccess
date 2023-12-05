@@ -2,23 +2,18 @@
 
 namespace DataAccess.Repository;
 
-public class RepositoryFactory<TContext> where TContext : DbContext
+public class RepositoryFactory<TContext>(TContext context)
+    where TContext : DbContext
 {
-    private readonly DbContext _context;
-    private readonly Dictionary<Type, object> _repositories;
-
-    public RepositoryFactory(TContext context)
-    {
-        _context = context;
-        _repositories = new Dictionary<Type, object>();
-    }
+    private readonly DbContext _context = context;
+    private readonly Dictionary<Type, object> _repositories = new();
 
     public IRepository<T> GetRepositoryByType<T>() where T : class
     {
         var type = typeof(T);
-        if (_repositories.ContainsKey(type))
+        if (_repositories.TryGetValue(type, out var repo))
         {
-            return (IRepository<T>)_repositories[type];
+            return (IRepository<T>)repo;
         }
 
         var repository = new Repository<T>(_context);

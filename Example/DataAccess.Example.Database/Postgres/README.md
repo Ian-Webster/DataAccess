@@ -2,7 +2,7 @@
 
 ## Docker instructions
 
-Start by running the docker file to create a MS-SQL server container;
+Start by running the docker file to create a Postgres server container;
 
 Open a command prompt, cd to this folder and run;
 

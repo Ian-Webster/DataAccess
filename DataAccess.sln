@@ -20,6 +20,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Repository.HotChocolate", "Extensions\DataAccess.Repository.HotChocolate\DataAccess.Repository.HotChocolate.csproj", "{A787E878-7D30-4B5A-9C38-958F3A0AD3B7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{19E38EB6-6908-4F0B-95E6-6C83866AC5E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,10 @@ Global
 		{B0DCE86C-FCAE-423B-BA82-C6EC3D3C57A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0DCE86C-FCAE-423B-BA82-C6EC3D3C57A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0DCE86C-FCAE-423B-BA82-C6EC3D3C57A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A787E878-7D30-4B5A-9C38-958F3A0AD3B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A787E878-7D30-4B5A-9C38-958F3A0AD3B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A787E878-7D30-4B5A-9C38-958F3A0AD3B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A787E878-7D30-4B5A-9C38-958F3A0AD3B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +61,7 @@ Global
 		{B8EDFA45-9B84-4B90-AA21-D8F2ED870E9B} = {DE3BBAC2-124B-403F-BB19-03A794FE57F1}
 		{01D1F0A2-B22B-41E6-96A1-3BCC516BBF06} = {DE3BBAC2-124B-403F-BB19-03A794FE57F1}
 		{B0DCE86C-FCAE-423B-BA82-C6EC3D3C57A3} = {DE3BBAC2-124B-403F-BB19-03A794FE57F1}
+		{A787E878-7D30-4B5A-9C38-958F3A0AD3B7} = {19E38EB6-6908-4F0B-95E6-6C83866AC5E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E9414AEC-FCFA-419E-97A9-BB14AD678C48}

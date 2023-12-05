@@ -25,15 +25,15 @@ public class Update: RepositoryTestBase<Book>
         var result = await repo.Update(book, Token);
 
         // assert
-        Assert.IsTrue(result);
+        Assert.That(result, Is.True);
 
         var books = await dbSet.ToListAsync();
         Assert.That(BookTestData.GetBookData().Count, Is.EqualTo(books.Count));
 
         var updatedBook = await dbSet.FirstOrDefaultAsync(b => b.BookId == bookToUpdate.BookId, Token);
-        Assert.IsNotNull(updatedBook);
-        StringAssert.AreEqualIgnoringCase(bookToUpdate.Name, updatedBook.Name);
-        Assert.IsFalse(books.Any(b => b.BookId != bookToUpdate.BookId && b.Name == bookToUpdate.Name));
+        Assert.That(updatedBook, Is.Not.Null);
+        Assert.That(bookToUpdate.Name, Is.EqualTo(updatedBook?.Name));
+        Assert.That(books.Any(b => b.BookId != bookToUpdate.BookId && b.Name == bookToUpdate.Name), Is.False);
     }
 
     [TestCaseSource(nameof(UnattachedUpdateBookTestCaseData))]
@@ -50,12 +50,12 @@ public class Update: RepositoryTestBase<Book>
         var result = await repo.Update(bookToUpdate, Token);
 
         // assert
-        Assert.IsFalse(result);
+        Assert.That(result, Is.False);
 
         var books = await dbSet.ToListAsync();
         Assert.That(BookTestData.GetBookData().Count, Is.EqualTo(books.Count));
 
         var updatedBook = await dbSet.FirstOrDefaultAsync(b => b.Name == bookToUpdate.Name, Token);
-        Assert.IsNull(updatedBook);
+        Assert.That(updatedBook, Is.Null);
     }
 }

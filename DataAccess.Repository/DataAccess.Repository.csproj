@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -9,13 +9,13 @@
     <Description>A simple base repository to be used in other projects requiring data access</Description>
     <PackageProjectUrl>https://github.com/Ian-Webster/DataAccess</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Ian-Webster/DataAccess</RepositoryUrl>
-    <VersionPrefix>1.0.4</VersionPrefix>
+    <VersionPrefix>2.0.0-wip</VersionPrefix>
     <VersionSuffix></VersionSuffix>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0" />
   </ItemGroup>
 
 </Project>
