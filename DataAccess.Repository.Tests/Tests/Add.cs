@@ -1,6 +1,5 @@
 ﻿using DataAccess.Repository.Tests.Shared.Entities;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
 namespace DataAccess.Repository.Tests.Tests;
