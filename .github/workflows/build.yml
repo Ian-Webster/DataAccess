@@ -3,8 +3,8 @@ name: Build actions
 on:
     push:
       paths:
-        - 'DataAccess/DataAccess.Repository/**'
-        - 'DataAccess/Extensions/DataAccess.Repository.HotChocolate/**'
+        - 'DataAccess.Repository/**'
+        - 'Extensions/DataAccess.Repository.HotChocolate/**'
 
 jobs:
 
