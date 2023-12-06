@@ -1,4 +1,4 @@
-name: Branch actions
+name: Build actions
 
 on: push
 
