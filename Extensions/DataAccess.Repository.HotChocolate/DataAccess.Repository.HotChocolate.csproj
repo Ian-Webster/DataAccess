@@ -7,13 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DataAccess.Repository" Version="2.0.0-wip" />
     <PackageReference Include="HotChocolate" Version="13.7.0" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="13.7.0" />
     <PackageReference Include="HotChocolate.Data" Version="13.7.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\DataAccess.Repository\DataAccess.Repository.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0" />
   </ItemGroup>
 
 </Project>
