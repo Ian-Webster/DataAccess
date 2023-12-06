@@ -1,8 +1,8 @@
 on:
     push:
       paths:
-        - 'DataAccess.Repository/**'
-        - 'Extensions/DataAccess.Repository.HotChocolate/**'
+        - 'DataAccess.Repository/'
+        - 'Extensions/DataAccess.Repository.HotChocolate/'
 jobs:
     debug:
       runs-on: ubuntu-latest
