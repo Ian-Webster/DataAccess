@@ -113,4 +113,5 @@ Usage for this extension is as follows;
     ```
 
 ## Version history
+* 1.0.0 - Initial release
 * 0.1.0 - Initial project creation, getting everything figured out and running locally 
