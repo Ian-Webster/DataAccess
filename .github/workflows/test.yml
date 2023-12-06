@@ -30,7 +30,7 @@ jobs:
           echo "Changes detected in DataAccess.Repository project. Restoring packages, running build and testing..."
           dotnet restore 'DataAccess.Repository' 
           dotnet build --configuration Release 'DataAccess.Repository'
-          dotnet test 'DataAccess.Repository'
+          dotnet test 'DataAccess.Repository.Tests'
         else
           echo "No changes in DataAccess.Repository project. Skipping build."
-        fi
+        fi     
