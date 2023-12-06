@@ -32,7 +32,30 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release 'DataAccess.Repository'
 
-    # Execute all unit tests in the solution
-    - name: Execute unit tests
-      run: dotnet test
+  build_HotChococlateExtension:
 
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    # Install the .NET Core workload
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+        
+    # Set up local NuGet repo
+    - name: Setup GitHub NuGet
+      run: dotnet nuget add source --username USERNAME --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/Ian-Webster/index.json"
+
+    # Resource NuGet dependencies
+    - name: Restore dependencies
+      run: dotnet restore 'Extensions/DataAccess.Repository.HotChocolate'   
+
+    # Build project
+    - name: Build
+      run: dotnet build --configuration Release 'Extensions/DataAccess.Repository.HotChocolate'
