@@ -1,6 +1,10 @@
 name: Build actions
 
-on: push
+on:
+    push:
+      paths:
+        - 'DataAccess/DataAccess.Repository/**'
+        - 'DataAccess/Extensions/DataAccess.Repository.HotChocolate/**'
 
 jobs:
 
