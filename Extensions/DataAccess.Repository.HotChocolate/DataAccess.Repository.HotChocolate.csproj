@@ -9,7 +9,7 @@
     <Description>Extension to the DataAccess package adding GraphQL functionality via the HotChocolate library</Description>
     <PackageProjectUrl>https://github.com/Ian-Webster/DataAccess/Extensions/DataAccess.Repository.HotChocolate</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Ian-Webster/DataAccess</RepositoryUrl>
-    <VersionPrefix>0.3.0</VersionPrefix>
+    <VersionPrefix>0.3.1</VersionPrefix>
     <VersionSuffix></VersionSuffix>
   </PropertyGroup>
 

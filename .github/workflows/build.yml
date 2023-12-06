@@ -58,7 +58,7 @@ jobs:
       run: |
         if [[ $(git diff --name-only ${{ github.event.before }} ${{ github.sha }} 'Extensions/DataAccess.Repository.HotChocolate/') ]]; then
           echo "Changes detected in Extensions/DataAccess.Repository.HotChocolate project. Restoring packages and running build..."
-          dotnet restore 'xtensions/DataAccess.Repository.HotChocolate' 
+          dotnet restore 'Extensions/DataAccess.Repository.HotChocolate' 
           dotnet build --configuration Release 'Extensions/DataAccess.Repository.HotChocolate'
         else
           echo "No changes in Extensions/DataAccess.Repository.HotChocolate project. Skipping build."
