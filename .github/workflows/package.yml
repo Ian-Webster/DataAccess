@@ -1,15 +1,14 @@
-name: Branch - build branch actions
+name: Trunk - build and package actions
 
 on:
     push:
       branches:
-        - '*'
-        - '!main'
-        - '!trunk'
+        - main
+        - trunk
 
 jobs:
 
-  build_DataAccess:
+  build_and_pack_DataAccess:
 
     runs-on: ubuntu-latest
 
@@ -35,11 +34,13 @@ jobs:
           echo "Changes detected in DataAccess.Repository project. Restoring packages and running build..."
           dotnet restore 'DataAccess.Repository' 
           dotnet build --configuration Release 'DataAccess.Repository'
+          dotnet test 'DataAccess.Repository.Tests'
+          dotnet nuget push "DataAccess.Repository/bin/Release/*.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source "github" --skip-duplicate
         else
-          echo "No changes in DataAccess.Repository project. Skipping build."
+          echo "No changes in DataAccess.Repository project. Skipping build and packing"
         fi
 
-  build_HotChococlateExtension:
+  build_and_pack_HotChococlateExtension:
 
     runs-on: ubuntu-latest
 
@@ -65,6 +66,7 @@ jobs:
           echo "Changes detected in Extensions/DataAccess.Repository.HotChocolate project. Restoring packages and running build..."
           dotnet restore 'Extensions/DataAccess.Repository.HotChocolate' 
           dotnet build --configuration Release 'Extensions/DataAccess.Repository.HotChocolate'
+          dotnet nuget push "DataAccess.Repository/bin/Release/*.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source "github" --skip-duplicate
         else
-          echo "No changes in Extensions/DataAccess.Repository.HotChocolate project. Skipping build."
+          echo "No changes in Extensions/DataAccess.Repository.HotChocolate project. Skipping build and packing"
         fi
