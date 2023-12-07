@@ -12,6 +12,7 @@ This extension provides GraphQL query functionality via the [HotChocolate Librar
     1. [HotChocolate](https://www.nuget.org/packages/HotChocolate/13.7.0?_src=template)
     2. [HotChocolate.Data](https://www.nuget.org/packages/HotChocolate.Data/13.7.0?_src=template)
     3. [DataAccess.Repository](https://github.com/Ian-Webster/DataAccess/pkgs/nuget/DataAccess.Repository)
+    4. [DataAccess.Repository.HotChocolate](https://github.com/Ian-Webster/DataAccess/pkgs/nuget/DataAccess.Repository.HotChocolate)
 4. Modify your IoC services to add and configure HotChocolate;
 	```csharp
    // set up HotChocolate
