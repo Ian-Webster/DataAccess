@@ -66,7 +66,7 @@ jobs:
           echo "Changes detected in Extensions/DataAccess.Repository.HotChocolate project. Restoring packages and running build..."
           dotnet restore 'Extensions/DataAccess.Repository.HotChocolate' 
           dotnet build --configuration Release 'Extensions/DataAccess.Repository.HotChocolate'
-          dotnet nuget push "DataAccess.Repository/bin/Release/*.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source "github" --skip-duplicate
+          dotnet nuget push "Extensions/DataAccess.Repository.HotChocolate/bin/Release/*.nupkg" --api-key ${{ secrets.GITHUB_TOKEN }} --source "github" --skip-duplicate
         else
           echo "No changes in Extensions/DataAccess.Repository.HotChocolate project. Skipping build and packing"
         fi
