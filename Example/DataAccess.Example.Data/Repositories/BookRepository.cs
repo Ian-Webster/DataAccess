@@ -3,6 +3,7 @@ using DataAccess.Example.Data.Entities;
 using DataAccess.Repository;
 using DataAccess.Repository.HotChocolate;
 using HotChocolate.Resolvers;
+using HotChocolate.Types.Pagination;
 
 namespace DataAccess.Example.Data.Repositories;
 
@@ -61,5 +62,15 @@ public class BookRepository: IBookRepository
     public async Task<Book?> GetBookForGraphQuery(IResolverContext context, CancellationToken token)
     {
         return await _bookRepo.GetQueryItem(context, token);
+    }
+
+    public async Task<IEnumerable<Book>?> GetBooksForGraphQuery(IResolverContext context, CancellationToken token)
+    {
+        return await _bookRepo.GetQueryItems(context, token);
+    }
+
+    public async Task<Connection<Book>> GetPagedBooksForGraphQuery(IResolverContext context, CancellationToken token)
+    {
+        return await _bookRepo.GetPagedQueryItems(context, token);
     }
 }

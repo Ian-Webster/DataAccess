@@ -4,16 +4,21 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>DataAccess.HotChocolate</Title>
+    <Description>Extension to the DataAccess package adding GraphQL functionality via the HotChocolate library</Description>
+    <PackageProjectUrl>https://github.com/Ian-Webster/DataAccess/Extensions/DataAccess.Repository.HotChocolate</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Ian-Webster/DataAccess</RepositoryUrl>
+    <VersionPrefix>0.3.1</VersionPrefix>
+    <VersionSuffix></VersionSuffix>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DataAccess.Repository" Version="2.0.0-wip" />
     <PackageReference Include="HotChocolate" Version="13.7.0" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="13.7.0" />
     <PackageReference Include="HotChocolate.Data" Version="13.7.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\DataAccess.Repository\DataAccess.Repository.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0" />
   </ItemGroup>
 
 </Project>

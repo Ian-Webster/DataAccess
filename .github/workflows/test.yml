@@ -1,0 +1,41 @@
+name: Branch - test DataAccess.Repository action
+
+on:
+  push:
+    branches:
+      - '*'
+      - '!main'
+      - '!trunk'
+
+jobs:
+
+  test_DataAccess:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    # Install the .NET Core workload
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+        
+    # Set up local NuGet repo
+    - name: Setup GitHub NuGet
+      run: dotnet nuget add source --username USERNAME --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/Ian-Webster/index.json"
+
+    - name: Check for Changes in Repository Project
+      run: |
+        if [[ $(git diff --name-only ${{ github.event.before }} ${{ github.sha }} 'DataAccess.Repository/' 'DataAccess.Repository.Tests/') ]]; then
+          echo "Changes detected. Restoring packages, running build and testing..."
+          dotnet restore 'DataAccess.Repository' 
+          dotnet build --configuration Release 'DataAccess.Repository'
+          dotnet test 'DataAccess.Repository.Tests'
+        else
+          echo "No changes. Skipping build and tests"
+        fi     

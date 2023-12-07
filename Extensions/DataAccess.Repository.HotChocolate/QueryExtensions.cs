@@ -68,8 +68,8 @@ public static class QueryExtensions
         IResolverContext context, CancellationToken token) where TEntity : class
     {
         return await repository.DbSet
-            .AsQueryable()
             .AsNoTracking()
+            .AsQueryable()
             .Filter(context)
             .Project(context)
             .Sort(context)
