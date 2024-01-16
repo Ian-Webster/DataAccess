@@ -33,4 +33,9 @@ public class BookQuery
     {
         return await repository.GetPagedBooksForGraphQuery(context, token);
     }
+
+    public async Task<CollectionSegment<Book>> GetOffsetPagedBooks([Service] IBookRepository repository, IResolverContext context, CancellationToken token)
+    {
+        return await repository.GetOffsetPagedBooksForGraphQuery(context, token);
+    }
 }
