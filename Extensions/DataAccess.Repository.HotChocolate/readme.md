@@ -114,5 +114,7 @@ Usage for this extension is as follows;
     ```
 
 ## Version history
+* 1.1.1 - Fixed documenation issues
+* 1.1.0 - Added offset paging
 * 1.0.0 - Initial release
 * 0.1.0 - Initial project creation, getting everything figured out and running locally 
