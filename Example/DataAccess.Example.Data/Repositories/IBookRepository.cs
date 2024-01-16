@@ -21,4 +21,6 @@ public interface IBookRepository
     Task<IEnumerable<Book>?> GetBooksForGraphQuery(IResolverContext context, CancellationToken token);
 
     Task<Connection<Book>> GetPagedBooksForGraphQuery(IResolverContext context, CancellationToken token);
+
+    Task<CollectionSegment<Book>> GetOffsetPagedBooksForGraphQuery(IResolverContext context, CancellationToken token);
 }

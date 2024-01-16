@@ -75,4 +75,30 @@ public static class QueryExtensions
             .Sort(context)
             .ApplyCursorPaginationAsync(context, cancellationToken:token);
     }
+
+    /// <summary>
+    /// Returns a collection of TEntity, filtered, sorted, offset paged and projected using extension methods from https://chillicream.com/docs/hotchocolate/v13/api-reference/extending-filtering
+    /// </summary>
+    /// <remarks>
+    /// Variation of cursor paging that uses skip/take instead of cursor data, see https://chillicream.com/docs/hotchocolate/v13/fetching-data/pagination/#offset-pagination
+    /// </remarks>
+    /// <typeparam name="TEntity">entity type for the repository</typeparam>
+    /// <param name="repository">IRepository</param>
+    /// <param name="context">HotChocolate filter context, this is used by the IQueryable extensions to apply filtering, sorting, pagination and projection</param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public static async Task<CollectionSegment<TEntity>> GetOffsetPagedQueryItems<TEntity>(this IRepository<TEntity> repository,
+               IResolverContext context, CancellationToken token) where TEntity : class
+    {
+        var take = context.ArgumentValue<int>("take");
+        var skip = context.ArgumentValue<int>("skip");
+
+        return await repository.DbSet
+            .AsNoTracking()
+            .AsQueryable()
+            .Filter(context)
+            .Project(context)
+            .Sort(context)
+            .ApplyOffsetPaginationAsync(skip, take, token);
+    }
 }
