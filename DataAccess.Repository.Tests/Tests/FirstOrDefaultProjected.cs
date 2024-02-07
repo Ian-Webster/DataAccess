@@ -13,7 +13,7 @@ public class FirstOrDefaultProjected: RepositoryTestBase<Book>
     public async Task Should_Return_Null_When_NoDataExists()
     {
         // arrange
-        var repo = GetRepository(Logger, GetContext());
+        var repo = GetRepository(LoggerFactory, GetContext());
 
         // act
         var result = await repo.FirstOrDefaultProjected(p
@@ -29,7 +29,7 @@ public class FirstOrDefaultProjected: RepositoryTestBase<Book>
     {
         // arrange
         var context = GetContext();
-        var repo = GetRepository(Logger, context);
+        var repo = GetRepository(LoggerFactory, context);
 
         await InsertData(BookTestData.GetBookData(), context);
 
@@ -48,7 +48,7 @@ public class FirstOrDefaultProjected: RepositoryTestBase<Book>
     {
         // arrange
         var context = GetContext();
-        var repo = GetRepository(Logger, context);
+        var repo = GetRepository(LoggerFactory, context);
         
         await InsertData(BookTestData.GetBookData(), context);
 

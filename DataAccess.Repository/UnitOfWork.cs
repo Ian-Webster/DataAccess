@@ -10,10 +10,10 @@ public class UnitOfWork<TContext> : IDisposable where TContext : DbContext
     private bool _disposed;
     private Dictionary<Type, object> _repositories;
 
-    public UnitOfWork(TContext context, ILogger logger)
+    public UnitOfWork(TContext context, ILoggerFactory loggerFactory)
     {
         _context = context;
-        _logger = logger;
+        _logger = loggerFactory.CreateLogger<UnitOfWork<TContext>>();
     }
 
     public IRepository<T> Repository<T>() where T : class

@@ -14,7 +14,7 @@ public class ListProjected : RepositoryTestBase<Book>
     public async Task Should_Return_EmptyList_When_NoDataExists()
     {
         // arrange
-        var repo = GetRepository(Logger, GetContext());
+        var repo = GetRepository(LoggerFactory, GetContext());
 
         // act
         var result = await repo.ListProjected(p => 
@@ -33,7 +33,7 @@ public class ListProjected : RepositoryTestBase<Book>
     {
         // arrange
         var context = GetContext();
-        var repo = GetRepository(Logger, context);
+        var repo = GetRepository(LoggerFactory, context);
 
         await InsertData(BookTestData.GetBookData(), context);
 
@@ -54,7 +54,7 @@ public class ListProjected : RepositoryTestBase<Book>
     {
         // arrange
         var context = GetContext();
-        var repo = GetRepository(Logger, context);
+        var repo = GetRepository(LoggerFactory, context);
 
         await InsertData(BookTestData.GetBookData(), context);
 
@@ -84,7 +84,7 @@ public class ListProjected : RepositoryTestBase<Book>
     {
         // arrange
         var context = GetContext();
-        var repo = GetRepository(Logger, context);
+        var repo = GetRepository(LoggerFactory, context);
 
         var testData = BookTestData.GetBookData();
         await InsertData(testData, context);

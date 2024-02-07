@@ -1,9 +1,9 @@
 ﻿using System.Collections;
-using System.Linq.Expressions;
 using DataAccess.Repository.Tests.Shared.DatabaseContexts;
 using DataAccess.Repository.Tests.Shared.DummyData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace DataAccess.Repository.Tests.Tests;
@@ -12,11 +12,16 @@ public class RepositoryTestBase<TEntity> where TEntity : class
 {
     protected readonly CancellationToken Token;
     protected ILogger Logger;
+#pragma warning disable NUnit1032 // An IDisposable field/property should be Disposed in a TearDown method
+    protected ILoggerFactory LoggerFactory;
+#pragma warning restore NUnit1032 // An IDisposable field/property should be Disposed in a TearDown method
 
     [SetUp]
     protected void Setup()
     {
-        Logger = NSubstitute.Substitute.For<ILogger>();
+        LoggerFactory = Substitute.For<ILoggerFactory>();
+        Logger = Substitute.For<ILogger>();
+        LoggerFactory.CreateLogger(Arg.Any<string>()).Returns(Logger);
     }
 
     public RepositoryTestBase()
@@ -35,7 +40,7 @@ public class RepositoryTestBase<TEntity> where TEntity : class
         return context.Set<TEntity>();
     }
 
-    protected IRepository<TEntity> GetRepository(ILogger mockLogger, LibraryDatabaseContext? context = null)
+    protected IRepository<TEntity> GetRepository(ILoggerFactory mockLogger, LibraryDatabaseContext? context = null)
     {
         return new UnitOfWork<LibraryDatabaseContext>(context ?? GetContext(), mockLogger).Repository<TEntity>();
     }

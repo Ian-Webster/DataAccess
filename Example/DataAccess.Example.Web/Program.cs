@@ -4,6 +4,8 @@ using DataAccess.Example.Data.Repositories;
 using DataAccess.Example.Web.Models;
 using DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+using DataAccess.Example.Data.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +14,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    // add documentation for controllers
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = System.IO.Path.Combine(AppContext.BaseDirectory, xmlFile);
+    options.IncludeXmlComments(xmlPath);
+    
+    // add documentation for models
+    xmlFile = $"{typeof(Book).Assembly.GetName().Name}.xml";
+    xmlPath = System.IO.Path.Combine(AppContext.BaseDirectory, xmlFile);
+    options.IncludeXmlComments(xmlPath);
+});
 
 // get connection strings
 var msSqlConnectionString = builder.Configuration.GetConnectionString("MsSqlConnection");
@@ -36,6 +49,7 @@ builder.Services.AddDbContext<LibraryDatabaseContext>(options =>
 });
 
 // set up services
+builder.Services.AddLogging();
 builder.Services.AddScoped<UnitOfWork<LibraryDatabaseContext>>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 
@@ -48,12 +62,16 @@ builder.Services.AddGraphQLServer()
     .AddSorting();
 
 var app = builder.Build();
-
+app.UseStaticFiles();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        // set dark mode to save everyone's eyes
+        options.InjectStylesheet("/swagger-ui/SwaggerDark.css");
+    });
 }
 
 app.UseHttpsRedirection();

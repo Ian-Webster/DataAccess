@@ -14,7 +14,7 @@ public class Paged : RepositoryTestBase<Book>
     public async Task Should_Return_Null_When_NoDataExists()
     {
         // arrange
-        var repo = GetRepository(Logger, GetContext());
+        var repo = GetRepository(LoggerFactory, GetContext());
         var pagingRequest = new PagingRequest { PageIndex = 0, PageSize = 10 };
 
         // act
@@ -33,7 +33,7 @@ public class Paged : RepositoryTestBase<Book>
     {
         // arrange
         var context = GetContext();
-        var repo = GetRepository(Logger, context);
+        var repo = GetRepository(LoggerFactory, context);
         var pagingRequest = new PagingRequest { PageIndex = 0, PageSize = 10 };
 
         await InsertData(BookTestData.GetBookData(), context);
@@ -54,7 +54,7 @@ public class Paged : RepositoryTestBase<Book>
     {
         // arrange
         var context = GetContext();
-        var repo = GetRepository(Logger, context);
+        var repo = GetRepository(LoggerFactory, context);
         
 
         await InsertData(BookTestData.GetPagedBookData(), context);
