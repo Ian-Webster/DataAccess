@@ -3,6 +3,7 @@ using DataAccess.Example.Data.Models;
 using DataAccess.Example.Data.Repositories;
 using DataAccess.Repository.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,10 +14,12 @@ namespace DataAccess.Example.Web.Controllers
     public class BookController : BaseController
     {
         private readonly IBookRepository _bookRepository;
+        private readonly IServiceScopeFactory _serviceScopeFactory;
 
-        public BookController(IBookRepository bookRepository)
+        public BookController(IBookRepository bookRepository, IServiceScopeFactory serviceScopeFactory)
         {
             _bookRepository = bookRepository;
+            _serviceScopeFactory = serviceScopeFactory;
         }
 
         /// <summary>
@@ -107,8 +110,19 @@ namespace DataAccess.Example.Web.Controllers
         [HttpGet("theadTest")]
         public async Task<ActionResult> ThreadTest()
         {
-            var task1 = Task.Run(() => _bookRepository.GetAllBooks(Token));
-            var task2 = Task.Run(() => _bookRepository.GetAllBooks(Token));
+            var task1 = Task.Run(async () =>
+            {
+                using var scope = _serviceScopeFactory.CreateScope();
+                var repo = scope.ServiceProvider.GetRequiredService<IBookRepository>();
+                await repo.GetAllBooks(Token);
+            });
+
+            var task2 = Task.Run(async () =>
+            {
+                using var scope = _serviceScopeFactory.CreateScope();
+                var repo = scope.ServiceProvider.GetRequiredService<IBookRepository>();
+                await repo.GetAllBooks(Token);
+            });
 
             await Task.WhenAll(task1, task2);
 
