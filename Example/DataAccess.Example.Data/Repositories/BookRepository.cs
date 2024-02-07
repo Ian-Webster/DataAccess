@@ -1,7 +1,9 @@
 ﻿using DataAccess.Example.Data.DatabaseContexts;
 using DataAccess.Example.Data.Entities;
+using DataAccess.Example.Data.Models;
 using DataAccess.Repository;
 using DataAccess.Repository.HotChocolate;
+using DataAccess.Repository.Models;
 using HotChocolate.Resolvers;
 using HotChocolate.Types.Pagination;
 
@@ -11,9 +13,9 @@ public class BookRepository: IBookRepository
 {
     private readonly IRepository<Book> _bookRepo;
 
-    public BookRepository(RepositoryFactory<LibraryDatabaseContext> repositoryFactory)
+    public BookRepository(UnitOfWork<LibraryDatabaseContext> unitOfWork)
     {
-        _bookRepo = repositoryFactory.GetRepositoryByType<Book>();
+        _bookRepo = unitOfWork.Repository<Book>();
     }
 
     public async Task<Book?> GetBookById(Guid bookId, CancellationToken token)
@@ -21,9 +23,32 @@ public class BookRepository: IBookRepository
         return await _bookRepo.FirstOrDefault(b => b.BookId == bookId, token);
     }
 
-    public async Task<IEnumerable<Book>?> GetAllBooks(CancellationToken token)
+    public async Task<IEnumerable<Book>?> GetAllBooks(CancellationToken token, int? take = null)
     {
-        return await _bookRepo.List(p => true, token);
+        return await _bookRepo.List(p => true, token, take);
+    }
+
+    public async Task<PagedResult<Book>> GetPageBooks(PagingRequest request, CancellationToken token)
+    {
+        return await _bookRepo.Paged(b => true, request, token);
+    }
+
+    public async Task<BookNameOnly?> GetBookNameOnlyById(Guid bookId, CancellationToken token)
+    {
+        return await _bookRepo.FirstOrDefaultProjected(b => b.BookId == bookId,
+            b => new BookNameOnly { BookName = b.Name }, token);
+    }
+
+    public async Task<IEnumerable<BookNameOnly>?> GetAllBookNamesOnly(CancellationToken token, int? take = null)
+    {
+        return await _bookRepo.ListProjected(b => true, 
+            b => new BookNameOnly { BookName = b.Name }, token, take);
+    }
+
+    public async Task<PagedResult<BookNameOnly>> GetPagedBookNamesOnly(PagingRequest request, CancellationToken token)
+    {
+        return await _bookRepo.PagedProjected(b => true, 
+                       b => new BookNameOnly { BookName = b.Name }, request, token);
     }
 
     public async Task<bool> AddBook(Book bookToAdd, CancellationToken token)

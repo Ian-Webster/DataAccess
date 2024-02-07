@@ -11,7 +11,7 @@ public class List: RepositoryTestBase<Book>
     public async Task Should_Return_EmptyList_When_NoDataExists()
     {
         // arrange
-        var repo = GetRepository();
+        var repo = GetRepository(LoggerFactory, GetContext());
 
         // act
         var result = await repo.List(p => p.Name.Contains("Book"), Token);
@@ -27,7 +27,7 @@ public class List: RepositoryTestBase<Book>
     {
         // arrange
         var context = GetContext();
-        var repo = GetRepository(context);
+        var repo = GetRepository(LoggerFactory, context);
 
         await InsertData(BookTestData.GetBookData(), context);
 
@@ -45,7 +45,7 @@ public class List: RepositoryTestBase<Book>
     {
         // arrange
         var context = GetContext();
-        var repo = GetRepository(context);
+        var repo = GetRepository(LoggerFactory, context);
 
         await InsertData(BookTestData.GetBookData(), context);
 
@@ -53,6 +53,7 @@ public class List: RepositoryTestBase<Book>
         var result = await repo.List(p => p.Name.Contains(searchString), Token);
 
         // assert
+        Assert.That(result, Is.Not.Null);
         Assert.That(result, Is.Not.Empty);
 
         var expectedBooks = BookTestData.GetBookData().Where(b => b.Name.Contains(searchString)).ToList();
@@ -61,6 +62,25 @@ public class List: RepositoryTestBase<Book>
         {
             Assert.That(result.Any(r => r.BookId == b.BookId), Is.True);
         });
+    }
 
-}
+    [TestCase(2)]
+    [TestCase(3)]
+    [TestCase(4)]
+    public async Task Should_Return_LimitedData_When_TakeParameterIsUsed(int take)
+    {
+        // arrange
+        var context = GetContext();
+        var repo = GetRepository(LoggerFactory, context);
+
+        var testData = BookTestData.GetBookData();
+        await InsertData(testData, context);
+
+        // act
+        var result = await repo.List(p => p.Name.Contains("Book"), Token, take);
+
+        // assert
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.Count(), Is.EqualTo(take));
+    }
 }

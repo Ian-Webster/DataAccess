@@ -14,7 +14,7 @@ public class Remove: RepositoryTestBase<Book>
         // arrange
         var context = GetContext();
         var dbSet = GetDbSet(context);
-        var repo = GetRepository(context);
+        var repo = GetRepository(LoggerFactory, context);
         
         await InsertData(BookTestData.GetBookData(), context);
 
@@ -38,7 +38,7 @@ public class Remove: RepositoryTestBase<Book>
         // arrange
         var context = GetContext();
         var dbSet = GetDbSet(context);
-        var repo = GetRepository(context);
+        var repo = GetRepository(LoggerFactory, context);
 
         await InsertData(BookTestData.GetBookData(), context);
 

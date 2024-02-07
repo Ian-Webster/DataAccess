@@ -2,12 +2,27 @@
 using DataAccess.Repository.Tests.Shared.DatabaseContexts;
 using DataAccess.Repository.Tests.Shared.DummyData;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using NSubstitute;
+using NUnit.Framework;
 
 namespace DataAccess.Repository.Tests.Tests;
 
 public class RepositoryTestBase<TEntity> where TEntity : class
 {
     protected readonly CancellationToken Token;
+    protected ILogger Logger;
+#pragma warning disable NUnit1032 // An IDisposable field/property should be Disposed in a TearDown method
+    protected ILoggerFactory LoggerFactory;
+#pragma warning restore NUnit1032 // An IDisposable field/property should be Disposed in a TearDown method
+
+    [SetUp]
+    protected void Setup()
+    {
+        LoggerFactory = Substitute.For<ILoggerFactory>();
+        Logger = Substitute.For<ILogger>();
+        LoggerFactory.CreateLogger(Arg.Any<string>()).Returns(Logger);
+    }
 
     public RepositoryTestBase()
     {
@@ -25,9 +40,9 @@ public class RepositoryTestBase<TEntity> where TEntity : class
         return context.Set<TEntity>();
     }
 
-    protected IRepository<TEntity> GetRepository(LibraryDatabaseContext? context = null)
+    protected IRepository<TEntity> GetRepository(ILoggerFactory mockLogger, LibraryDatabaseContext? context = null)
     {
-        return new RepositoryFactory<LibraryDatabaseContext>(context ?? GetContext()).GetRepositoryByType<TEntity>();
+        return new UnitOfWork<LibraryDatabaseContext>(context ?? GetContext(), mockLogger).Repository<TEntity>();
     }
 
     protected async Task InsertData(List<TEntity> entities, DbContext context)
@@ -73,5 +88,10 @@ public class RepositoryTestBase<TEntity> where TEntity : class
     protected static IEnumerable ListBookTestCaseData()
     {
         return BookTestData.GetListBooksTestCaseData();
+    }
+
+    public static IEnumerable PagedBookTestCaseData()
+    {
+        return BookTestData.PagedBookTestCaseData();
     }
 }
