@@ -9,15 +9,15 @@
     <Description>Extension to the DataAccess package adding GraphQL functionality via the HotChocolate library</Description>
     <PackageProjectUrl>https://github.com/Ian-Webster/DataAccess/Extensions/DataAccess.Repository.HotChocolate</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Ian-Webster/DataAccess/tree/main/Extensions/DataAccess.Repository.HotChocolate</RepositoryUrl>
-    <VersionPrefix>1.1.1</VersionPrefix>
+    <VersionPrefix>2.0.0</VersionPrefix>
     <VersionSuffix></VersionSuffix>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DataAccess.Repository" Version="2.0.5" />
-    <PackageReference Include="HotChocolate" Version="13.7.0" />
-    <PackageReference Include="HotChocolate.AspNetCore" Version="13.7.0" />
-    <PackageReference Include="HotChocolate.Data" Version="13.7.0" />
+    <PackageReference Include="DataAccess.Repository" Version="3.0.0" />
+    <PackageReference Include="HotChocolate" Version="13.8.1" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="13.8.1" />
+    <PackageReference Include="HotChocolate.Data" Version="13.8.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0" />
   </ItemGroup>
 
