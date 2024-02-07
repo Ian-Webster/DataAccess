@@ -114,6 +114,9 @@ Usage for this extension is as follows;
     ```
 
 ## Version history
+* 2.0.0 - 
+  * Updated to DataAccess.Repository 3.0.0
+  * Updated to HotChocolate 13.8.1
 * 1.1.1 - Fixed documenation issues
 * 1.1.0 - Added offset paging
 * 1.0.0 - Initial release
