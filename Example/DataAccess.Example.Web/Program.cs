@@ -36,7 +36,7 @@ builder.Services.AddDbContext<LibraryDatabaseContext>(options =>
 });
 
 // set up services
-builder.Services.AddScoped<RepositoryFactory<LibraryDatabaseContext>>();
+builder.Services.AddScoped<UnitOfWork<LibraryDatabaseContext>>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 
 // set up HotChocolate

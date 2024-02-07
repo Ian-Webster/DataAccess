@@ -41,6 +41,17 @@ namespace DataAccess.Example.Web.Controllers
             return book != null ? Ok(book) : NotFound($"Book with id {bookId} not found");
         }
 
+        [HttpGet("theadTest")]
+        public async Task<ActionResult> ThreadTest(CancellationToken token)
+        {
+            var task1 = Task.Run(() => _bookRepository.GetAllBooks(token));
+            var task2 = Task.Run(() => _bookRepository.GetAllBooks(token));
+
+            await Task.WhenAll(task1, task2);
+
+            return Ok();
+        }
+
         /// <summary>
         /// Adds a new book to the database
         /// </summary>

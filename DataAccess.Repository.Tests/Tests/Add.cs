@@ -12,7 +12,7 @@ public class Add: RepositoryTestBase<Book>
     {
         // arrange
         var context = GetContext();
-        var repo = GetRepository(context);
+        var repo = GetRepository(Logger, context);
 
         // act
         var result = await repo.Add(data, Token);

@@ -116,6 +116,10 @@ In your IoC bootstrapping you need to;
 
 ## Version history
 
+- 3.0.0
+	- refactored repository factory to follow unit of work pattern
+	- added new functionality to IRepository for optional take on List, projection and paging
+	- version bumps to NuGetPackages
 - 2.0.0 - work in progress commit to support the DataAccess.Repository.HotChocolate package
 - 1.0.4 - added usage instructions to readme file
 - 1.0.3 - updated main readme file

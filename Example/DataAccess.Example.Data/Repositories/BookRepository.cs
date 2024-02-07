@@ -11,9 +11,9 @@ public class BookRepository: IBookRepository
 {
     private readonly IRepository<Book> _bookRepo;
 
-    public BookRepository(RepositoryFactory<LibraryDatabaseContext> repositoryFactory)
+    public BookRepository(UnitOfWork<LibraryDatabaseContext> unitOfWork)
     {
-        _bookRepo = repositoryFactory.GetRepositoryByType<Book>();
+        _bookRepo = unitOfWork.Repository<Book>();
     }
 
     public async Task<Book?> GetBookById(Guid bookId, CancellationToken token)

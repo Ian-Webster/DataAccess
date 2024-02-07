@@ -16,7 +16,7 @@ public class Exists: RepositoryTestBase<Book>
         var bookId = Guid.Parse(bookIdString);
 
         var context = GetContext();
-        var repo = GetRepository(context);
+        var repo = GetRepository(Logger, context);
 
         await InsertData(BookTestData.GetBookData(), context);
 
@@ -36,7 +36,7 @@ public class Exists: RepositoryTestBase<Book>
         var bookId = Guid.Parse(bookIdString);
 
         var context = GetContext();
-        var repo = GetRepository(context);
+        var repo = GetRepository(Logger, context);
 
         await InsertData(BookTestData.GetBookData(), context);
 
