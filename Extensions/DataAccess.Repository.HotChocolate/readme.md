@@ -114,6 +114,7 @@ Usage for this extension is as follows;
     ```
 
 ## Version history
+* 2.0.1 - Updated to DataAccess.Repository 3.0.1
 * 2.0.0 - 
   * Updated to DataAccess.Repository 3.0.0
   * Updated to HotChocolate 13.8.1
