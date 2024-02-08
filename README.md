@@ -80,11 +80,11 @@ using DataAccess.Sample.Domain.Entities;
 public class MovieRepository: IMovieRepository
 {
     private readonly IRepository<Movie> _movieRepository;
-	// inject RepositoryFactory for creating IRepository instances
-    public MovieRepository(RepositoryFactory<MovieContext> repositoryFactory)
+	// inject UnitOfWork for creating IRepository instances
+    public MovieRepository(UnitOfWork<MovieContext> unitOfWork)
     {
 		// create an instance of IRepository for our entity (Movie)
-        _movieRepository = repositoryFactory.GetRepositoryByType<Movie>();
+        _movieRepository = unitOfWork.Repository<Movie>();
     }
 
     public async Task<Movie?> GetMovieById(Guid movieId, CancellationToken token)
@@ -107,15 +107,72 @@ In your IoC bootstrapping you need to;
 	```
 2. Set up your services;
 	```csharp
-	// add RepositoryFactory (this will be needed by your repository class)
-	builder.Services.AddScoped<RepositoryFactory<MovieContext>>();
-	// add your repositories
-	builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+   // add RepositoryFactory (this will be needed by your repository class)
+   builder.Services.AddScoped<UnitOfWork<LibraryDatabaseContext>>();
+   builder.Services.AddScoped<RepositoryFactory<MovieContext>>();
+   // add your repositories
+   builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 	```
+## Thread safety
+The DBContext class [is not thread safe](https://learn.microsoft.com/en-us/ef/core/dbcontext-configuration/#avoiding-dbcontext-threading-issues), the refactored version of this library does help improve thread safety but there are still potential issues, take the following code as an example;
 
+```csharp
+public class BookController : ControllerBase
+{
+    private readonly IBookRepository _bookRepository;
+
+    public BookController(IBookRepository bookRepository)
+    {
+        _bookRepository = bookRepository;
+    }
+
+    [HttpGet("theadTest")]
+    public async Task<ActionResult> ThreadTest()
+    {
+        var task1 = Task.Run(() => _bookRepository.GetAllBooks(new CancellationToken()));
+        var task2 = Task.Run(() => _bookRepository.GetAllBooks(new CancellationToken()));
+		
+        await Task.WhenAll(task1, task2);
+        
+        return Ok();
+    }
+}
+```
+the line `await Task.WhenAll(task1, task2);` will throw an exception "System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913", the reason for this is that `_bookRepository` is scoped per request but we are making two separate calls to the database re-using the same DBContext leading to our thread error.
+
+To fix the issue we must ensure that each of the tasks receives it's own instance of DBContext, we modify the `ThreadTest` method to look like this;
+
+```csharp
+[HttpGet("theadTest")]
+public async Task<ActionResult> ThreadTest()
+{
+    var task1 = Task.Run(async () =>
+    {
+        using var scope = _serviceScopeFactory.CreateScope();
+        var repo = scope.ServiceProvider.GetRequiredService<IBookRepository>();
+        await repo.GetAllBooks(Token);
+    });
+
+    var task2 = Task.Run(async () =>
+    {
+        using var scope = _serviceScopeFactory.CreateScope();
+        var repo = scope.ServiceProvider.GetRequiredService<IBookRepository>();
+        await repo.GetAllBooks(Token);
+    });
+
+    await Task.WhenAll(task1, task2);
+
+    return Ok();
+}
+```
+
+in addition we must in inject `IServiceScopeFactory` into our controller.
+
+With the above change in place we ensure each of the two tasks receives their own instance of UnitOfWork and therefore their own instance of a DBContext. 
 
 ## Version history
 
+- 3.0.1 - update documentation
 - 3.0.0
 	- refactored repository factory to follow unit of work pattern
 	- added new functionality to IRepository for optional take on List, projection and paging

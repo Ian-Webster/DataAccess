@@ -9,7 +9,7 @@
     <Description>A simple base repository to be used in other projects requiring data access</Description>
     <PackageProjectUrl>https://github.com/Ian-Webster/DataAccess</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Ian-Webster/DataAccess</RepositoryUrl>
-    <VersionPrefix>3.0.0</VersionPrefix>
+    <VersionPrefix>3.0.1</VersionPrefix>
     <VersionSuffix></VersionSuffix>
   </PropertyGroup>
 
